@@ -157,9 +157,9 @@ const Contact = () => {
             <div key={fullData.email}>
               <div className="flex">
                 <div className="w-[500px]">
-                  <p className="text-gray-700 text-lg font-extrabold my-4 text-gray-500">
+                  {/* <p className="text-gray-700 text-lg font-extrabold my-4 text-gray-500">
                     {fullData.title}
-                  </p>
+                  </p> */}
                   {/* <img
                     src={
                       fullData.blogsPhoto[0].path !== undefined
@@ -171,24 +171,24 @@ const Contact = () => {
                   /> */}
                 </div>
                 <div className="ml-10 bg-gray-200 text-gray-500 rounded-md py-2 px-4 h-24 flex flex-col items-center justify-center mt-20 border border-gray-200 ">
-                  <p className="text-sm font-bold my-1">
+                  {/* <p className="text-sm font-bold my-1">
                     blogers name:{" "}
                     {fullData.length !== 0 ? fullData.name : data[0].name}
                   </p>
                   <p className="text-sm font-bold">
                     email:{" "}
                     {fullData.length !== 0 ? fullData.email : data[0].email}
-                  </p>
+                  </p> */}
                 </div>
               </div>
-              <p className="absolute top-72 left-[800px] text-xs text-gray-500">
+              {/* <p className="absolute top-72 left-[800px] text-xs text-gray-500">
                 {format(fullData.length !== 0 ? fullData.time : data[0].time)}
               </p>
               <p className="my-2 text-sm text-gray-500">
                 {fullData.length !== 0
                   ? fullData.description
                   : data[0].description}
-              </p>
+              </p> */}
             </div>
           )}
         </div>
