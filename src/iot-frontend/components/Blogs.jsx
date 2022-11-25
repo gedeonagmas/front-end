@@ -160,7 +160,7 @@ const Contact = () => {
                   <p className="text-gray-700 text-lg font-extrabold my-4 text-gray-500">
                     {fullData.title}
                   </p>
-                  <img
+                  {/* <img
                     src={
                       fullData.blogsPhoto[0].path !== undefined
                         ? require(`./../../iotUploads/${fullData.blogsPhoto[0].path}`)
@@ -168,7 +168,7 @@ const Contact = () => {
                     }
                     alt="default img"
                     className="h-64 w-[96%]"
-                  />
+                  /> */}
                 </div>
                 <div className="ml-10 bg-gray-200 text-gray-500 rounded-md py-2 px-4 h-24 flex flex-col items-center justify-center mt-20 border border-gray-200 ">
                   <p className="text-sm font-bold my-1">
