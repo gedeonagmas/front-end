@@ -125,6 +125,7 @@ const Contact = () => {
       <div className="h-[90vh] w-screen mt-4 flex">
         <div className="w-72 h-[88vh] overflow-y-scroll bg-gray-200 text-black shadow-sm shadow-black rounded-md ml-14 mt-2">
           {data &&
+            data.length !== 0 &&
             data.map((da) => {
               return (
                 <div
