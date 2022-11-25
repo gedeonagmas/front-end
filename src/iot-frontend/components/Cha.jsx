@@ -148,7 +148,7 @@ const Cha = ({ currentUser }) => {
   //   fetchAllDataHandler();
   // }, []);
   useEffect(() => {
-    setSocket(io("http://localhost:2200"));
+    setSocket(io("https://iot-back-end.onrender.com"));
   }, []);
 
   useEffect(() => {
@@ -165,7 +165,7 @@ const Cha = ({ currentUser }) => {
   };
   //############################################## file delete handler #####################################
   const fileDeleteHandler = async () => {
-    await axios.delete(`http://localhost:2200/delete/file?ids=${chatId}`);
+    await axios.delete(`https://iot-back-end.onrender.com/delete/file?ids=${chatId}`);
     setFileSendFlag(false);
     setFiles("");
     setFileDescription("");
@@ -174,7 +174,7 @@ const Cha = ({ currentUser }) => {
   const patchHandler = async (data) => {
     if (data) {
       const da = await axios.patch(
-        `http://localhost:2200/update/private/chat?ids=${data.chatId}`,
+        `https://iot-back-end.onrender.com/update/private/chat?ids=${data.chatId}`,
         {
           chatOwners: data.chatOwners,
           chatId: data.chatId,
@@ -193,7 +193,7 @@ const Cha = ({ currentUser }) => {
       );
       if (da.request.status === 200) {
         const data2 = await axios.get(
-          `http://localhost:2200/get/private/chat?ids=${chatId}`
+          `https://iot-back-end.onrender.com/get/private/chat?ids=${chatId}`
         );
         setTexts(data2.data[0].messages);
         dataSenderHandler(data2.data[0].messages, data2.data[0].chatId);
@@ -206,7 +206,7 @@ const Cha = ({ currentUser }) => {
   const [typing, setTyping] = useState(false);
   const messageSendHandler = async () => {
     const data2 = await axios.get(
-      `http://localhost:2200/get/private/chat?ids=${chatId}`
+      `https://iot-back-end.onrender.com/get/private/chat?ids=${chatId}`
     );
     if (data2.request.status === 201) {
       patchHandler(data2.data[0]);
@@ -241,7 +241,7 @@ const Cha = ({ currentUser }) => {
   };
   //############################################ creat room handler helper ###################################
   const createRoomHandlerHelper = async (elId, elName, types) => {
-    const data = await axios.post("http://localhost:2200/create/private/chat", {
+    const data = await axios.post("https://iot-back-end.onrender.com/create/private/chat", {
       chatOwners: `${currentUser[0].userName} and ${elName}`,
       chatId: elId,
       messages: {
@@ -255,7 +255,7 @@ const Cha = ({ currentUser }) => {
     });
     if (data.request.status === 201) {
       const data1 = await axios.get(
-        `http://localhost:2200/get/private/chat?ids=${elId}`
+        `https://iot-back-end.onrender.com/get/private/chat?ids=${elId}`
       );
       if (data1.data.length !== 0) {
         if (data1.data[0].messages.length < 2) {
@@ -274,11 +274,11 @@ const Cha = ({ currentUser }) => {
     setFirstId(firstId);
     setSecondId(secondId);
     const data1 = await axios.get(
-      `http://localhost:2200/get/private/chat?ids=${firstId}`
+      `https://iot-back-end.onrender.com/get/private/chat?ids=${firstId}`
     );
     if (data1.data.length === 0) {
       const data2 = await axios.get(
-        `http://localhost:2200/get/private/chat?ids=${secondId}`
+        `https://iot-back-end.onrender.com/get/private/chat?ids=${secondId}`
       );
       if (data2.data.length === 0) {
         createRoomHandlerHelper(firstId, elName, type);
@@ -305,13 +305,13 @@ const Cha = ({ currentUser }) => {
   };
   //############################### private underline handler ###############################
   const underlineHandler = async (val) => {
-    const data = await axios.get(`http://localhost:2200/get/all/users`);
+    const data = await axios.get(`https://iot-back-end.onrender.com/get/all/users`);
     let b = [];
     data.data.map((ee, j) => {
       b.push(ee._id);
       if (j === data.data.length - 1) {
         const fu = async () => {
-          const data2 = await axios.get("http://localhost:2200/get/group/data");
+          const data2 = await axios.get("https://iot-back-end.onrender.com/get/group/data");
           data2.data.map((e, i) => {
             b.push(e._id);
             if (i === data2.data.length - 1) {
@@ -336,7 +336,7 @@ const Cha = ({ currentUser }) => {
   //############################################## file patch handler ###############################
   const filePatchHandler = async (messageData, fileData) => {
     const data1 = await axios.patch(
-      `http://localhost:2200/update/private/chat?ids=${messageData.chatId}`,
+      `https://iot-back-end.onrender.com/update/private/chat?ids=${messageData.chatId}`,
       {
         chatOwners: messageData.chatOwners,
         chatId: messageData.chatId,
@@ -360,7 +360,7 @@ const Cha = ({ currentUser }) => {
     );
     if (data1.request.status === 200) {
       const data2 = await axios.get(
-        `http://localhost:2200/get/private/chat?ids=${chatId}`
+        `https://iot-back-end.onrender.com/get/private/chat?ids=${chatId}`
       );
       if (data2.data[0].messages.length < 2) {
         setSayHi(true);
@@ -375,17 +375,17 @@ const Cha = ({ currentUser }) => {
   //############################################## file get handler #################################
   const fileGetHandler = async () => {
     const fileData = await axios.get(
-      `http://127.0.0.1:2200/get/file?ids=${chatId}`
+      `https://iot-back-end.onrender.com/get/file?ids=${chatId}`
     );
     if (fileData.data.length !== 0) {
       const data1 = await axios.get(
-        `http://127.0.0.1:2200/get/private/chat?ids=${firstIds}`
+        `https://iot-back-end.onrender.com/get/private/chat?ids=${firstIds}`
       );
       if (data1.request.status === 201 && data1.data.length !== 0) {
         filePatchHandler(data1.data[0], fileData.data[0]);
       } else {
         const data2 = await axios.get(
-          `http://127.0.0.1:2200/get/private/chat?ids=${secondIds}`
+          `https://iot-back-end.onrender.com/get/private/chat?ids=${secondIds}`
         );
         if (data2.request.status === 201 && data2.data.length !== 0) {
           filePatchHandler(data2.data[0], fileData.data[0]);
@@ -405,7 +405,7 @@ const Cha = ({ currentUser }) => {
       fd.append("time", new Date().toISOString());
       fd.append("sender", currentUser[0].userName);
       fd.append("chatId", chatId);
-      const data = await axios.post("http://localhost:2200/post/file", fd);
+      const data = await axios.post("https://iot-back-end.onrender.com/post/file", fd);
       if (data.request.status === 200) {
         fileGetHandler();
       }
@@ -453,7 +453,7 @@ const Cha = ({ currentUser }) => {
   //######################################## group room create handler ################################
   const groupJoinHandler = async (groupId, groupName, groups) => {
     const data = await axios.get(
-      `http://localhost:2200/get/single/group?ids=${groupId}`
+      `https://iot-back-end.onrender.com/get/single/group?ids=${groupId}`
     );
     if (data.data.length !== 0 && data.request.status === 200) {
       setOwnGroupData(data.data);
@@ -479,7 +479,7 @@ const Cha = ({ currentUser }) => {
       setJoinHope(val);
     });
     const data = await axios.get(
-      `http://localhost:2200/get/single/group?ids=${groupIds}`
+      `https://iot-back-end.onrender.com/get/single/group?ids=${groupIds}`
     );
     const b = data.data[0].requests;
     const a = currentUser[0]._id;
@@ -491,7 +491,7 @@ const Cha = ({ currentUser }) => {
     } else {
       let filterdIds = b.concat(a);
       const data1 = await axios.patch(
-        `http://localhost:2200/join/request?ids=${groupIds}`,
+        `https://iot-back-end.onrender.com/join/request?ids=${groupIds}`,
         {
           requests: filterdIds,
         }
@@ -500,7 +500,7 @@ const Cha = ({ currentUser }) => {
         setJoinHope(true);
         console.log(data1.data, "request send");
         const data2 = await axios.get(
-          `http://localhost:2200/get/single/group?ids=${groupIds}`
+          `https://iot-back-end.onrender.com/get/single/group?ids=${groupIds}`
         );
         newRequestDataSetHandler(data2.data);
         afterCancel();
@@ -510,7 +510,7 @@ const Cha = ({ currentUser }) => {
   //################################ group memeber add and remove handler #############################
   const groupMemberAddAndRemoveHandler = async (el) => {
     const data2 = await axios.get(
-      `http://localhost:2200/get/single/group?ids=${groupIds}`
+      `https://iot-back-end.onrender.com/get/single/group?ids=${groupIds}`
     );
     console.log(data2.data, "new fetch");
     console.log(ownGroupData, "own");
@@ -520,7 +520,7 @@ const Cha = ({ currentUser }) => {
     members.map((els) => {
       const func = async () => {
         const data = await axios.get(
-          `http://localhost:2200/get/single/user?ids=${els}`
+          `https://iot-back-end.onrender.com/get/single/user?ids=${els}`
         );
         arr.push(data.data[0]);
         if (arr.length === members.length) {
@@ -553,7 +553,7 @@ const Cha = ({ currentUser }) => {
       requests.map((els, i) => {
         const func = async () => {
           const data = await axios.get(
-            `http://localhost:2200/get/single/user?ids=${els}`
+            `https://iot-back-end.onrender.com/get/single/user?ids=${els}`
           );
           arr.push(data.data[0]);
           if (i === requests.length - 1) {
@@ -574,14 +574,14 @@ const Cha = ({ currentUser }) => {
   //########################### after cancel ##################################
   const afterCancel = async () => {
     const data = await axios.get(
-      `http://localhost:2200/get/single/group?ids=${groupIds}`
+      `https://iot-back-end.onrender.com/get/single/group?ids=${groupIds}`
     );
     setOwnGroupData(data.data);
   };
   //###################### after delete fetch data for total users and add members ####################
   const fetchForAllMembersAfterDelete = async () => {
     const data1 = await axios.get(
-      `http://localhost:2200/get/single/group?ids=${groupIds}`
+      `https://iot-back-end.onrender.com/get/single/group?ids=${groupIds}`
     );
     // socket?.emit("ff1", data1.data[0].members.length);
     // socket?.on("ff2", (val) => {
@@ -594,7 +594,7 @@ const Cha = ({ currentUser }) => {
       data1.data[0].members.map((aa, i) => {
         const func = async () => {
           const data4 = await axios.get(
-            `http://localhost:2200/get/single/user?ids=${aa}`
+            `https://iot-back-end.onrender.com/get/single/user?ids=${aa}`
           );
           if (data4.data.length !== 0 && data4.request.status === 200) {
             bb.push(data4.data[0]);
@@ -616,14 +616,14 @@ const Cha = ({ currentUser }) => {
   //##################### after delete fetch datas for add members ######################################
   const fetchForAddMembersAfterDelete = async () => {
     const data1 = await axios.get(
-      `http://localhost:2200/get/single/group?ids=${groupIds}`
+      `https://iot-back-end.onrender.com/get/single/group?ids=${groupIds}`
     );
     // socket?.emit("ff1", data1.data[0].members.length);
     // socket?.on("ff2", (val) => {
     //   setGroupMembers(val);
     // });
     let idContainer = [];
-    const data = await axios.get("http://localhost:2200/get/all/users");
+    const data = await axios.get("https://iot-back-end.onrender.com/get/all/users");
     data.data.map((e, i) => {
       idContainer.push(e._id);
       if (i === data.data.length - 1) {
@@ -634,7 +634,7 @@ const Cha = ({ currentUser }) => {
         ids.map((ee, i) => {
           const func = async () => {
             const data4 = await axios.get(
-              `http://localhost:2200/get/single/user?ids=${ee}`
+              `https://iot-back-end.onrender.com/get/single/user?ids=${ee}`
             );
             if (data4.data.length !== 0 && data4.request.status === 200) {
               aaa.push(data4.data[0]);
@@ -663,7 +663,7 @@ const Cha = ({ currentUser }) => {
       (o) => idsToBeRemoved.indexOf(o) === -1
     );
     const data = await axios.patch(
-      `http://localhost:2200/add/group/member?ids=${groupIds}`,
+      `https://iot-back-end.onrender.com/add/group/member?ids=${groupIds}`,
       {
         members: filterdIds,
       }
@@ -676,7 +676,7 @@ const Cha = ({ currentUser }) => {
   };
   //####################################### add memebers handler ######################################
   const addMembersHandler = async (el) => {
-    const data = await axios.get("http://localhost:2200/get/all/users");
+    const data = await axios.get("https://iot-back-end.onrender.com/get/all/users");
     if (data.data.length !== 0 && data.request.status === 200) {
       const allUser = data.data;
       const members = ownGroupData[0].members;
@@ -691,7 +691,7 @@ const Cha = ({ currentUser }) => {
           unique1.map((ee, i) => {
             const func = async () => {
               const data4 = await axios.get(
-                `http://localhost:2200/get/single/user?ids=${ee}`
+                `https://iot-back-end.onrender.com/get/single/user?ids=${ee}`
               );
               if (data4.data.length !== 0 && data4.request.status === 200) {
                 aaa.push(data4.data[0]);
@@ -712,7 +712,7 @@ const Cha = ({ currentUser }) => {
   //####################################### add users to group handler ################################
   const addUsersToGroupHandler = async (val) => {
     const data = await axios.patch(
-      `http://localhost:2200/add/group/member?ids=${groupIds}`,
+      `https://iot-back-end.onrender.com/add/group/member?ids=${groupIds}`,
       {
         members: [...ownGroupData[0].members, val],
       }
@@ -725,14 +725,14 @@ const Cha = ({ currentUser }) => {
   //############################################# request accept handler ##############################
   const requestAcceptHandler = async (val) => {
     const data1 = await axios.get(
-      `http://localhost:2200/get/single/group?ids=${groupIds}`
+      `https://iot-back-end.onrender.com/get/single/group?ids=${groupIds}`
     );
     if (data1.data.length !== 0 && data1.request.status === 200) {
       const acceptedIds = val;
       const currentIds = data1.data[0].requests;
       const filterdIds = currentIds.filter((el) => el !== acceptedIds);
       const data2 = await axios.patch(
-        `http://localhost:2200/join/request?ids=${groupIds}`,
+        `https://iot-back-end.onrender.com/join/request?ids=${groupIds}`,
         {
           requests: filterdIds,
         }
@@ -740,7 +740,7 @@ const Cha = ({ currentUser }) => {
       if (data2.request.status === 200) {
         addUsersToGroupHandler(val);
         const data3 = await axios.get(
-          `http://localhost:2200/get/single/group?ids=${groupIds}`
+          `https://iot-back-end.onrender.com/get/single/group?ids=${groupIds}`
         );
         newRequestDataSetHandler(data3.data);
         // socket?.emit("ff1", data3.data[0].members.length);
@@ -757,21 +757,21 @@ const Cha = ({ currentUser }) => {
   //############################################# request reject handler ##############################
   const requestRejectHandler = async (val) => {
     const data1 = await axios.get(
-      `http://localhost:2200/get/single/group?ids=${groupIds}`
+      `https://iot-back-end.onrender.com/get/single/group?ids=${groupIds}`
     );
     if (data1.request.status === 200 && data1.data.length !== 0) {
       const currentIds = data1.data[0].requests;
       const removedIds = val;
       const filterdIds = currentIds.filter((el) => el !== removedIds);
       const data2 = await axios.patch(
-        `http://localhost:2200/join/request?ids=${groupIds}`,
+        `https://iot-back-end.onrender.com/join/request?ids=${groupIds}`,
         {
           requests: filterdIds,
         }
       );
       if (data2.request.status === 200) {
         const data3 = await axios.get(
-          `http://localhost:2200/get/single/group?ids=${groupIds}`
+          `https://iot-back-end.onrender.com/get/single/group?ids=${groupIds}`
         );
         newRequestDataSetHandler(data3.data);
         setJoinHope(false);
