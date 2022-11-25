@@ -153,7 +153,7 @@ const Contact = () => {
             })}
         </div>
         <div className="flex flex-col w-[60%] h-[76vh] mt-14 ml-16 px-10 overflow-y-scroll relative">
-          {data.length !== 0 && fullData.length !== 0 && (
+          {data && fullData && (
             <div key={fullData.email}>
               <div className="flex">
                 <div className="w-[500px]">
