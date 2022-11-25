@@ -153,7 +153,7 @@ const Contact = () => {
             })}
         </div>
         <div className="flex flex-col w-[60%] h-[76vh] mt-14 ml-16 px-10 overflow-y-scroll relative">
-          {fullData && data && (
+          {data.length !== 0 && fullData.length !== 0 && (
             <div key={fullData.email}>
               <div className="flex">
                 <div className="w-[500px]">
@@ -162,7 +162,7 @@ const Contact = () => {
                   </p>
                   <img
                     src={
-                      fullData.length !== 0 && data.length !== 0
+                      fullData.blogsPhoto[0].path !== undefined
                         ? require(`./../../iotUploads/${fullData.blogsPhoto[0].path}`)
                         : require(`./../../iotUploads/${data[0].blogsPhoto[0].path}`)
                     }
