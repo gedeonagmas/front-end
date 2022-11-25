@@ -8,7 +8,7 @@ import { CloseOutlined, PortraitOutlined } from "@mui/icons-material";
 import { format } from "timeago.js";
 
 const Contact = () => {
-  const [fullData,setFullData]=useState([]);
+  const [fullData, setFullData] = useState([]);
   const [posted, setPosted] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -25,18 +25,18 @@ const Contact = () => {
     fd.append("title", title);
     fd.append("description", description);
     fd.append("blo", photo);
-    fd.append('time',new Date().toISOString());
+    fd.append("time", new Date().toISOString());
     blogData(fd);
   };
 
-  useEffect(()=>{
-    data &&console.log(data,'ddd');
-    fullData&&console.log(fullData,'full data');
-    data &&setFullData(data[0]);
-  },[])
-  const fullVideoHandler=(value)=>{
+  useEffect(() => {
+    data && console.log(data, "ddd");
+    fullData && console.log(fullData, "full data");
+    data && setFullData(data[0]);
+  }, []);
+  const fullVideoHandler = (value) => {
     setFullData(value);
-  }
+  };
   return (
     <div className="my-1 mt-4 flex flex-col pb-5 items-center justify-center w-[96%]">
       <p className="text-xl font-extrabold text-gray-500">
@@ -124,31 +124,72 @@ const Contact = () => {
       )}
       <div className="h-[90vh] w-screen mt-4 flex">
         <div className="w-72 h-[88vh] overflow-y-scroll bg-gray-200 text-black shadow-sm shadow-black rounded-md ml-14 mt-2">
-          {data && data.map((da)=>{
-            return <div key={da.email} className="mt-10 hover:bg-gray-400 cursor-pointer" onClick={()=>{fullVideoHandler(da)}}>
-              <p className=" text-xs font-bold my-1 mx-4">{da.title}</p>
-              <img src={require(`./../../iotUploads/${da.blogsPhoto[0].path}`)} alt="default img" className="h-28 w-60 mx-4" />
-              <p className="text-xs mx-4">{format(da.time)}<span className=" font-bold ml-16">by {da.name}</span></p>
-              <p className="text-sm font-bold text-emerald-400 mx-2">----------------------------------------------</p>
-            </div>
-          })}
+          {data &&
+            data.map((da) => {
+              return (
+                <div
+                  key={da.email}
+                  className="mt-10 hover:bg-gray-400 cursor-pointer"
+                  onClick={() => {
+                    fullVideoHandler(da);
+                  }}
+                >
+                  <p className=" text-xs font-bold my-1 mx-4">{da.title}</p>
+                  <img
+                    src={require(`./../../iotUploads/${da.blogsPhoto[0].path}`)}
+                    alt="default img"
+                    className="h-28 w-60 mx-4"
+                  />
+                  <p className="text-xs mx-4">
+                    {format(da.time)}
+                    <span className=" font-bold ml-16">by {da.name}</span>
+                  </p>
+                  <p className="text-sm font-bold text-emerald-400 mx-2">
+                    ----------------------------------------------
+                  </p>
+                </div>
+              );
+            })}
         </div>
         <div className="flex flex-col w-[60%] h-[76vh] mt-14 ml-16 px-10 overflow-y-scroll relative">
-          {fullData && data &&<div key={fullData.email}>
+          {fullData && data && (
+            <div key={fullData.email}>
               <div className="flex">
                 <div className="w-[500px]">
-                    <p className="text-gray-700 text-lg font-extrabold my-4 text-gray-500">{fullData.title}</p>
-                    <img src={fullData.length !==0 ? require(`./../../iotUploads/${fullData.blogsPhoto[0].path}`):require(`./../../iotUploads/${data[0].blogsPhoto[0].path}`)} alt="default img" className="h-64 w-[96%]"/>
+                  <p className="text-gray-700 text-lg font-extrabold my-4 text-gray-500">
+                    {fullData.title}
+                  </p>
+                  <img
+                    src={
+                      fullData.length !== 0 && data.length !== 0
+                        ? require(`./../../iotUploads/${fullData.blogsPhoto[0].path}`)
+                        : require(`./../../iotUploads/${data[0].blogsPhoto[0].path}`)
+                    }
+                    alt="default img"
+                    className="h-64 w-[96%]"
+                  />
                 </div>
                 <div className="ml-10 bg-gray-200 text-gray-500 rounded-md py-2 px-4 h-24 flex flex-col items-center justify-center mt-20 border border-gray-200 ">
-                  <p className="text-sm font-bold my-1">blogers name: {fullData.length!==0?fullData.name:data[0].name}</p>
-                  <p className="text-sm font-bold">email: {fullData.length!==0?fullData.email:data[0].email}</p>
+                  <p className="text-sm font-bold my-1">
+                    blogers name:{" "}
+                    {fullData.length !== 0 ? fullData.name : data[0].name}
+                  </p>
+                  <p className="text-sm font-bold">
+                    email:{" "}
+                    {fullData.length !== 0 ? fullData.email : data[0].email}
+                  </p>
                 </div>
               </div>
-              <p className="absolute top-72 left-[800px] text-xs text-gray-500">{format(fullData.length!==0?fullData.time:data[0].time)}</p>
-              <p className="my-2 text-sm text-gray-500">{fullData.length!==0?fullData.description:data[0].description}</p>
+              <p className="absolute top-72 left-[800px] text-xs text-gray-500">
+                {format(fullData.length !== 0 ? fullData.time : data[0].time)}
+              </p>
+              <p className="my-2 text-sm text-gray-500">
+                {fullData.length !== 0
+                  ? fullData.description
+                  : data[0].description}
+              </p>
             </div>
-          }
+          )}
         </div>
       </div>
     </div>
